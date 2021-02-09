@@ -35,11 +35,11 @@ public class TopicoDto {
 	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
-	
+
 	public static List<TopicoDto> converter(List<Topico> topicos) {
-		
+
 		System.out.println(topicos.stream().map(TopicoDto::new).collect(Collectors.toList()));
-		
+
 		return topicos.stream().map(TopicoDto::new).collect(Collectors.toList());
 	}
 
