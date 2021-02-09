@@ -1,4 +1,4 @@
-package br.com.alura.projetospring.modelo;
+package br.com.tomioka.projetospring.modelo;
 
 import java.time.LocalDateTime;
 

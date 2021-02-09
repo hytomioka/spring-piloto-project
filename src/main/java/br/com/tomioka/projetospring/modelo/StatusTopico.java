@@ -1,4 +1,4 @@
-package br.com.alura.projetospring.modelo;
+package br.com.tomioka.projetospring.modelo;
 
 public enum StatusTopico {
 	
