@@ -18,6 +18,13 @@ public class ErroDeValidacaoHandler {
 	@Autowired
 	MessageSource messageSource;
 	
+	/*
+	 * ResponseStatus determina o Status de resposta de requisição, o padrão do 
+	 * RestControllerAdvice é 200.
+	 *
+	 * "MethodArgumentNotValidException" é a exceção lançada pelo Spring quando não tratada,
+	 * para este caso.
+	 */
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	public List<ErroDeFormularioDto> handle(MethodArgumentNotValidException exception) {

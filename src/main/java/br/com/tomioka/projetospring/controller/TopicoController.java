@@ -8,12 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.tomioka.projetospring.controller.dto.TopicoDetalhadoDto;
 import br.com.tomioka.projetospring.controller.dto.TopicoDto;
 import br.com.tomioka.projetospring.controller.form.TopicoForm;
 import br.com.tomioka.projetospring.modelo.Topico;
@@ -49,6 +51,11 @@ public class TopicoController {
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
 		// retorna o status 201 e o corpo da requisicao
 		return ResponseEntity.created(uri).body(new TopicoDto(topico));
+	}
+	
+	@GetMapping("/{id}")
+	public TopicoDetalhadoDto buscar(@PathVariable Long id) {
+		return TopicoDetalhadoDto.converter(topicoRepository.getOne(id));
 	}
 
 }
