@@ -2,6 +2,7 @@ package br.com.tomioka.projetospring.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -63,25 +64,39 @@ public class TopicoController {
 	 * objeto salvo ser do tipo TopicoDto, não TopicoDetalhadoDto.
 	 */
 	@GetMapping("/{id}")
-	public TopicoDetalhadoDto buscar(@PathVariable Long id) {
-		Topico topico = topicoRepository.getOne(id);
-		return new TopicoDetalhadoDto(topico);
+	public ResponseEntity<TopicoDetalhadoDto> buscar(@PathVariable Long id) {
+		Optional<Topico> topico = topicoRepository.findById(id);
+		if (topico.isPresent()) {
+			return ResponseEntity.ok().body(new TopicoDetalhadoDto(topico.get()));
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+		
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizaTopicoForm form) {
-		Topico topico = form.atualiza(id, topicoRepository);
-		topico.setTitulo(form.getTitulo());
-		topico.setMensagem(form.getMensagem());
-		return ResponseEntity.ok().body(new TopicoDto(topico));
+		Optional<Topico> opt = topicoRepository.findById(id);
+		if (opt.isPresent()) {
+			Topico topico = form.atualiza(id, topicoRepository);
+			topico.setTitulo(form.getTitulo());
+			topico.setMensagem(form.getMensagem());
+			return ResponseEntity.ok().body(new TopicoDto(topico));
+		}
+		return ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> deletar(@PathVariable Long id) {
-		topicoRepository.deleteById(id);
-		return ResponseEntity.ok().build();
+		Optional<Topico> opt = topicoRepository.findById(id);
+		if (opt.isPresent()) {
+			topicoRepository.deleteById(id);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	
