@@ -11,7 +11,6 @@ public interface TopicoRepository extends JpaRepository<Topico, Long> {
 	// Método automático para busca do Spring - findBy{classe1}{atributo_classe1}
 	List<Topico> findByCursoNome(String nomeCurso);
 
-
 //	// Outra forma, que pode diferenciar entre uma Classe e um Atributo pelo {_}
 //	List<Topico> findByCurso_Nome(String nomeCurso);
 //	 

@@ -41,8 +41,6 @@ public class Topico {
 		this.curso = curso;
 	}
 
-
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
