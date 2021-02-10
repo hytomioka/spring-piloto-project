@@ -1,5 +1,10 @@
 package br.com.tomioka.projetospring.controller.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 import br.com.tomioka.projetospring.modelo.Curso;
 import br.com.tomioka.projetospring.modelo.Topico;
 import br.com.tomioka.projetospring.repository.CursoRepository;
@@ -9,8 +14,11 @@ import br.com.tomioka.projetospring.repository.CursoRepository;
  */
 public class TopicoForm {
 
+	@NotNull @NotEmpty
 	private String titulo;
+	@NotNull @NotEmpty @Length(max = 100)
 	private String mensagem;
+	@NotNull @NotEmpty
 	private String nomeCurso;
 
 	public String getTitulo() {
